@@ -19,9 +19,22 @@ public class MessageReceiver {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("Queue Message Received: "+text);
         emailService.sendSimpleMessage(ME,SUBJECT,
                 text);
         emailService.sendMessageWithAttachment(ME,SUBJECT,text,"/home/mike/cummins");
+        System.out.println("Queue Message Received: "+text);
+    }
+
+    @JmsListener(destination = "email.queue")
+    public void receiveEmailQueue(String text) {
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+//        emailService.sendSimpleMessage(ME,SUBJECT,
+//                text);
+//        emailService.sendMessageWithAttachment(ME,SUBJECT,text,"/home/mike/cummins");
+        System.out.println("Queue Message Received: "+text);
     }
 }
